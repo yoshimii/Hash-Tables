@@ -1,3 +1,7 @@
+import sys
+sys.path.append('../dynamic_array')
+from dynamic_array import DynamicArray
+
 # '''
 # Linked List hash table key/value pair
 # '''
