@@ -18,7 +18,7 @@ class HashTable:
     '''
     def __init__(self, capacity):
         self.capacity = capacity  # Number of buckets in the hash table
-        self.storage = [None] * capacity
+        self.storage = DynamicArray(capacity=8)
 
 
     def _hash(self, key):
@@ -55,9 +55,12 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
-
-
+        hashed = self._hash_mod(key)
+        self.storage.insert(hashed, value)
+        print('HASED, VALUE: ', hashed, value)
+        print('KEY, VALUE: ', key, value)
+        print('LENGTH: ', self.storage.__sizeof__())
+        # dir(DynamicArray)
 
     def remove(self, key):
         '''
@@ -78,8 +81,11 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
-
+        hashed = self._hash_mod(key)
+        if self.storage.storage[hashed]:
+            return self.storage.storage[hashed]
+        if not self.storage.storage[hashed]:
+            return None
 
     def resize(self):
         '''
@@ -88,7 +94,7 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        self.storage.double_size()
 
 
 
@@ -106,16 +112,16 @@ if __name__ == "__main__":
     print(ht.retrieve("line_2"))
     print(ht.retrieve("line_3"))
 
-    # Test resizing
-    old_capacity = len(ht.storage)
-    ht.resize()
-    new_capacity = len(ht.storage)
+    # # Test resizing
+    # old_capacity = len(ht.storage)
+    # ht.resize()
+    # new_capacity = len(ht.storage)
 
-    print(f"\nResized from {old_capacity} to {new_capacity}.\n")
+    # print(f"\nResized from {old_capacity} to {new_capacity}.\n")
 
-    # Test if data intact after resizing
-    print(ht.retrieve("line_1"))
-    print(ht.retrieve("line_2"))
-    print(ht.retrieve("line_3"))
+    # # Test if data intact after resizing
+    # print(ht.retrieve("line_1"))
+    # print(ht.retrieve("line_2"))
+    # print(ht.retrieve("line_3"))
 
-    print("")
+    # print("")
